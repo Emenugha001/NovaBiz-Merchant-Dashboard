@@ -131,7 +131,7 @@ export default function HeroData({
         )}
 
         {step === "submit-failed" && (
-          <SubmitFailedStep title="Purchase didn't go through" onRetry={submitPurchase} onClose={onClose} />
+          <SubmitFailedStep title="Purchase didn't go through" onRetry={() => setStep("pin")} onClose={onClose} />
         )}
       </div>
     </div>

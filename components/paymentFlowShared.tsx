@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import type { BalanceSummary } from "../lib/api";
 import { getActiveProfile } from "../lib/activeProfile";
 import { formatAccountNumber } from "../lib/account";
@@ -136,6 +136,57 @@ export function PayingFromCard({
         {balance.status === "success" ? formatMoney(balance.data.balanceKobo) : balance.status === "loading" ? "…" : "—"}
       </p>
     </div>
+  );
+}
+
+/** Keeps only digits and a single decimal point, capped at 2 decimal places (kobo). */
+function sanitizeNairaInput(value: string): string {
+  const digitsAndDots = value.replace(/[^\d.]/g, "");
+  const firstDot = digitsAndDots.indexOf(".");
+  if (firstDot === -1) return digitsAndDots;
+  const whole = digitsAndDots.slice(0, firstDot + 1);
+  const decimals = digitsAndDots.slice(firstDot + 1).replace(/\./g, "").slice(0, 2);
+  return whole + decimals;
+}
+
+/**
+ * A Naira amount input that accepts kobo (e.g. "5000.70"), not just whole Naira.
+ * Tracks the raw typed text itself rather than reformatting from `amountKobo` on every
+ * keystroke, so a trailing "." or a single trailing zero isn't clobbered mid-entry.
+ */
+export function AmountNairaInput({
+  amountKobo,
+  onChangeAmountKobo,
+}: {
+  amountKobo: number;
+  onChangeAmountKobo: (kobo: number) => void;
+}) {
+  const [rawInput, setRawInput] = useState(() => (amountKobo === 0 ? "" : String(amountKobo / 100)));
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    const sanitized = sanitizeNairaInput(event.target.value);
+    setRawInput(sanitized);
+    const naira = sanitized === "" || sanitized === "." ? 0 : Number(sanitized);
+    onChangeAmountKobo(Math.round(naira * 100));
+  }
+
+  return (
+    <>
+      <div className="mt-6 flex items-center justify-center gap-2">
+        <span className="text-3xl font-[700] text-white/50">₦</span>
+        <input
+          id="amount"
+          inputMode="decimal"
+          autoComplete="off"
+          autoFocus
+          value={rawInput}
+          onChange={handleChange}
+          placeholder="0"
+          className="w-40 rounded-xl bg-transparent text-center text-4xl font-[700] text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#FFBF0D]"
+        />
+      </div>
+      {rawInput !== "" && <p className="mt-1 text-center text-xs text-white/40">{formatMoney(amountKobo)}</p>}
+    </>
   );
 }
 

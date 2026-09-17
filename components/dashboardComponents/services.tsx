@@ -104,9 +104,9 @@ export default function Services({
   };
 
   return (
-    <div className="w-full rounded-2xl bg-white p-6">
+    <div className="w-full rounded-2xl bg-white p-6 dark:bg-[#161a42]">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-[600] text-[#23297A]">Services</h2>
+        <h2 className="text-lg font-[600] text-[#23297A] dark:text-white">Services</h2>
         <button type="button" className="text-sm font-[600] text-[#FFBF0D]">
           Edit
         </button>
@@ -118,7 +118,7 @@ export default function Services({
             key={service.key}
             type="button"
             onClick={handlers[service.key]}
-            className="flex flex-col items-center gap-2 rounded-2xl bg-[#23297A]/5 px-2 py-4 text-[#23297A] transition-colors hover:bg-[#23297A]/10"
+            className="flex flex-col items-center gap-2 rounded-2xl bg-[#23297A]/5 px-2 py-4 text-[#23297A] transition-colors hover:bg-[#23297A]/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
           >
             {service.icon}
             <span className="text-xs font-[600] sm:text-sm">{service.label}</span>

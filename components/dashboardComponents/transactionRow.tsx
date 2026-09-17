@@ -44,7 +44,7 @@ export function TransactionRow({ transaction }: { transaction: Transaction }) {
           </div>
         </div>
       </div>
-      <p className={`text-sm font-[600] ${isCredit ? "text-green-400" : "text-white"}`}>
+      <p className={`text-sm font-[600] ${isCredit ? "text-green-400" : "text-[#ec2d01]"}`}>
         {isCredit ? "+" : "-"}
         {formatMoney(transaction.amountKobo)}
       </p>
