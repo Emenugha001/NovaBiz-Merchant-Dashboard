@@ -301,38 +301,45 @@ const TABS: { key: string; label: string; icon: IconName; active?: boolean }[] =
   { key: "rewards", label: "Rewards", icon: "rewards" },
 ];
 
-export default function More({ onStatementClick }: { onStatementClick?: () => void }) {
+export default function More({
+  onStatementClick,
+  onSettingsClick,
+}: {
+  onStatementClick?: () => void;
+  onSettingsClick?: () => void;
+}) {
   const handlers: Record<string, (() => void) | undefined> = {
     statement: onStatementClick,
+    settings: onSettingsClick,
   };
 
   return (
-    <div className="w-full overflow-hidden rounded-2xl bg-white">
+    <div className="w-full overflow-hidden rounded-2xl bg-white dark:bg-[#161a42]">
       <div className="bg-[#23297A] px-6 py-5 text-center">
         <h2 className="text-xl font-[700] text-white">All services</h2>
       </div>
 
       <div className="px-6 pt-5">
-        <div className="flex items-center gap-3 rounded-xl bg-[#23297A]/5 px-4 py-3">
-          <span className="text-[#23297A]/50">
+        <div className="flex items-center gap-3 rounded-xl bg-[#23297A]/5 px-4 py-3 dark:bg-white/5">
+          <span className="text-[#23297A]/50 dark:text-white/50">
             <Icon name="search" />
           </span>
-          <span className="text-base text-[#23297A]/50">Search services or settings</span>
+          <span className="text-base text-[#23297A]/50 dark:text-white/50">Search services or settings</span>
         </div>
       </div>
 
       <div className="flex flex-col gap-8 px-6 py-6">
         {SECTIONS.map((section) => (
           <div key={section.title}>
-            <h3 className="text-base text-[#23297A]/60">{section.title}</h3>
+            <h3 className="text-base text-[#23297A]/60 dark:text-white/60">{section.title}</h3>
             <div className="mt-3 grid grid-cols-4 gap-3">
               {section.items.map((item) => (
                 <button
                   key={item.key}
                   type="button"
                   onClick={handlers[item.key]}
-                  className={`flex flex-col items-center gap-2 rounded-2xl bg-[#23297A]/5 px-2 py-4 text-center transition-colors hover:bg-[#23297A]/10 ${
-                    item.danger ? "text-[#ec2d01]" : "text-[#23297A]"
+                  className={`flex flex-col items-center gap-2 rounded-2xl bg-[#23297A]/5 px-2 py-4 text-center transition-colors hover:bg-[#23297A]/10 dark:bg-white/5 dark:hover:bg-white/10 ${
+                    item.danger ? "text-[#ec2d01]" : "text-[#23297A] dark:text-white"
                   }`}
                 >
                   <Icon name={item.icon} />
@@ -344,13 +351,13 @@ export default function More({ onStatementClick }: { onStatementClick?: () => vo
         ))}
       </div>
 
-      <div className="flex items-center justify-around border-t border-gray-100 px-4 py-4 lg:hidden">
+      <div className="flex items-center justify-around border-t border-gray-100 px-4 py-4 dark:border-white/10 lg:hidden">
         {TABS.map((tab) => (
           <button
             key={tab.key}
             type="button"
             className={`flex flex-col items-center gap-1 text-sm font-[600] ${
-              tab.active ? "text-[#FFBF0D]" : "text-[#23297A]"
+              tab.active ? "text-[#FFBF0D]" : "text-[#23297A] dark:text-white"
             }`}
           >
             <Icon name={tab.icon} />

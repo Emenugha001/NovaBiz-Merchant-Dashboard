@@ -42,7 +42,7 @@ function Logo() {
         height={32}
         className="h-7 w-7 object-contain mix-blend-multiply"
       />
-      <span className="text-xl font-[700] text-[#23297A]">NovaBiz</span>
+      <span className="text-xl font-[700] text-[#23297A] dark:text-white">NovaBiz</span>
     </div>
   );
 }
@@ -64,7 +64,9 @@ function NavList({
             type="button"
             onClick={() => onSelect(item.key)}
             className={`flex items-center gap-3 rounded-full px-4 py-3 text-left text-sm font-[600] transition-colors ${
-              isActive ? "bg-[#23297A] text-white" : "text-[#23297A] hover:bg-gray-50"
+              isActive
+                ? "bg-[#23297A] text-white"
+                : "text-[#23297A] hover:bg-gray-50 dark:text-white/70 dark:hover:bg-white/5"
             }`}
           >
             <span
@@ -108,7 +110,7 @@ function ProfileFooter() {
         height={36}
         className="h-9 w-9 rounded-full object-cover"
       />
-      <span className="text-sm font-[600] text-[#23297A]">{profile.name}</span>
+      <span className="text-sm font-[600] text-[#23297A] dark:text-white">{profile.name}</span>
     </div>
   );
 }
@@ -129,13 +131,13 @@ export default function Sidebar({
 
   return (
     <>
-      <div className="flex items-center justify-between border-b border-gray-100 bg-white px-4 py-3 lg:hidden">
+      <div className="flex items-center justify-between border-b border-gray-100 bg-white px-4 py-3 dark:border-white/10 dark:bg-[#0d0f24] lg:hidden">
         <Logo />
         <button
           type="button"
           onClick={() => setIsMobileOpen(true)}
           aria-label="Open menu"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-[#23297A]"
+          className="flex h-9 w-9 items-center justify-center rounded-md text-[#23297A] dark:text-white"
         >
           <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -150,14 +152,14 @@ export default function Sidebar({
             onClick={() => setIsMobileOpen(false)}
             aria-hidden="true"
           />
-          <div className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col overflow-y-auto bg-white px-5 py-8 shadow-xl">
+          <div className="absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col overflow-y-auto bg-white px-5 py-8 shadow-xl dark:bg-[#0d0f24]">
             <div className="flex items-center justify-between">
               <Logo />
               <button
                 type="button"
                 onClick={() => setIsMobileOpen(false)}
                 aria-label="Close menu"
-                className="flex h-9 w-9 items-center justify-center rounded-md text-[#23297A]"
+                className="flex h-9 w-9 items-center justify-center rounded-md text-[#23297A] dark:text-white"
               >
                 <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
@@ -171,7 +173,7 @@ export default function Sidebar({
         </div>
       )}
 
-      <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:flex lg:w-64 lg:flex-col lg:border-r lg:border-gray-100 lg:bg-white lg:px-5 lg:py-8">
+      <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:flex lg:w-64 lg:flex-col lg:border-r lg:border-gray-100 lg:bg-white lg:px-5 lg:py-8 dark:lg:border-white/10 dark:lg:bg-[#0d0f24]">
         <Logo />
         <NavList active={active} onSelect={handleSelect} />
         <PromoCard />

@@ -92,7 +92,7 @@ export default function Overview({
           <>
             <p className="text-4xl font-[700] text-white">
               {isBalanceHidden ? (
-                "₦**,***.**"
+                "₦ **,***.** k"
               ) : (
                 <>
                   <span>{balanceParts.symbol}</span>

@@ -5,8 +5,8 @@ NovaBiz Merchant Dashboard is a small-merchant dashboard for the NovaBiz module 
 ## Features
 
 - **Login** — email/password sign-in gates access to the dashboard entirely; there's no way to reach `/dashboard` without authenticating first (direct navigation redirects back to `/login`). Each account is a separate mock profile with its own name, balance, and account number — see [Demo accounts](#demo-accounts).
-- **Balance summary** — current wallet balance and today's inflow/outflow totals, computed from the mock transaction store and formatted from integer kobo via `Intl.NumberFormat`.
-- **Transaction feed** — a "Recent transactions" card on the dashboard, a "last 5 days" view, and a full **Statement** page wit=h search (by description), debit/credit filtering, and a date-range filter, paginated so 1,200+ mock rows stay smooth.
+- **Balance summary** — current wallet balance andnovabiz today's inflow/outflow totals, computed from the mock transaction store and formatted from integer kobo via `Intl.NumberFormat`.
+- **Transaction feed** — a "Recent transactions" card on the dashboard, a "last 5 days" view, and a full **Statement** page with search (by description), debit/credit filtering, and a date-range filter, paginated so 1,200+ mock rows stay smooth.
 - **Send Money, Buy Airtime, Buy Data** — three multi-step overlays sharing the same underlying flow: recipient/network selection → amount (or plan) → PIN authorization → an **optimistic** success screen that reconciles (rolls back to a retryable failure state) if the mocked request actually fails, using a stable `Idempotency-Key` so a retry can't double-send.
 - **Mock API layer** — MSW intercepts `fetch()` in the browser, backed by a small in-memory store, with configurable simulated latency and failure rate.
 
