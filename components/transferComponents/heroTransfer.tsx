@@ -7,6 +7,7 @@ import { BANKS, RECENT_BANK_IDS, type Bank } from "../../lib/banks";
 import { formatMoney } from "../../lib/money";
 import { useFetch } from "../../lib/useFetch";
 import {
+  AmountNairaInput,
   ChevronRightIcon,
   CloseIcon,
   DAILY_LIMIT_KOBO,
@@ -143,7 +144,7 @@ export default function HeroTransfer({
         )}
 
         {step === "submit-failed" && (
-          <SubmitFailedStep title="Transfer didn't go through" onRetry={submitTransfer} onClose={onClose} />
+          <SubmitFailedStep title="Transfer didn't go through" onRetry={() => setStep("pin")} onClose={onClose} />
         )}
       </div>
     </div>
@@ -394,8 +395,6 @@ function AmountStep({
   onBack: () => void;
   onContinue: () => void;
 }) {
-  const amountNaira = Math.floor(amountKobo / 100);
-
   let hint: string | null = null;
   if (amountKobo === 0 || amountKobo < MINIMUM_AMOUNT_KOBO) {
     hint = `Enter an amount above ${formatMoney(MINIMUM_AMOUNT_KOBO)}`;
@@ -427,22 +426,7 @@ function AmountStep({
         <label htmlFor="amount" className="sr-only">
           Amount in Naira
         </label>
-        <div className="mt-6 flex items-center justify-center gap-2">
-          <span className="text-3xl font-[700] text-white/50">₦</span>
-          <input
-            id="amount"
-            inputMode="numeric"
-            autoComplete="off"
-            autoFocus
-            value={amountNaira === 0 ? "" : amountNaira.toLocaleString("en-US")}
-            onChange={(event) => {
-              const digits = event.target.value.replace(/\D/g, "").slice(0, 9);
-              onChangeAmountKobo(digits ? Number(digits) * 100 : 0);
-            }}
-            placeholder="0"
-            className="w-40 rounded-xl bg-transparent text-center text-4xl font-[700] text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#FFBF0D]"
-          />
-        </div>
+        <AmountNairaInput amountKobo={amountKobo} onChangeAmountKobo={onChangeAmountKobo} />
 
         {hint && (
           <p className="mt-2 text-center text-xs text-white/50">

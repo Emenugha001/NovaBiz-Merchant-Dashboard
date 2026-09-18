@@ -10,6 +10,7 @@ import More from "../dashboardComponents/more"
 import Transactions from "../dashboardComponents/transactions"
 import RecentTransactions from "../dashboardComponents/recentTransactions"
 import Statement from "../dashboardComponents/statement"
+import Settings from "../dashboardComponents/settings"
 import Spending from "../dashboardComponents/spending"
 import HeroTransfer from "../transferComponents/heroTransfer"
 import HeroAirtime from "../airtimeComponents/heroAirtime"
@@ -60,7 +61,7 @@ const Dashboard = () => {
             return;
         }
         if (key === "settings") {
-            setComingSoonTitle("Settings");
+            setActive("settings");
             return;
         }
         if (key === "support") {
@@ -91,9 +92,12 @@ const Dashboard = () => {
                         <Transactions refreshKey={refreshKey} onViewAllClick={() => setActive("recent-transactions")} />
                     </div>
                 )}
-                {active === "more" && <More onStatementClick={() => setActive("statement")} />}
+                {active === "more" && (
+                    <More onStatementClick={() => setActive("statement")} onSettingsClick={() => setActive("settings")} />
+                )}
                 {active === "recent-transactions" && <RecentTransactions onBack={() => setActive("overview")} />}
                 {active === "statement" && <Statement onBack={() => setActive("overview")} />}
+                {active === "settings" && <Settings onBack={() => setActive("overview")} />}
             </main>
             {isTransferOpen && (
                 <HeroTransfer
